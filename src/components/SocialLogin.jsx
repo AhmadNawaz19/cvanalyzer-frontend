@@ -3,11 +3,11 @@ import './styles/sociallogin.css';
 
 const SocialLogin = () => {
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:8000/auth/google";
+    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
   };
 
   const handleGithubLogin = () => {
-    window.location.href = "http://localhost:8000/githubauth/github";
+    window.location.href = `${import.meta.env.VITE_API_URL}/githubauth/github`;
   };
 
   return (

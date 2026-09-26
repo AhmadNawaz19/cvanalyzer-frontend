@@ -3,7 +3,7 @@ import { FaStar, FaUserCircle, FaPaperPlane } from "react-icons/fa";
 import "./styles/review.css";
 import { useUserStore } from "../store/userDataStore";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import api from "../api/axios";
 
 
 const Review = React.memo(() => {
@@ -15,9 +15,7 @@ const Review = React.memo(() => {
 
 
   const submiteReview = async (review)=> {
-    const response = await axios.post('http://localhost:8000/review/postReview', review, {
-      withCredentials: true,
-    })
+    const response = await api.post('/review/postReview', review)
     if(!response.data.success) {
       setSuccess(false)
     }else{
@@ -42,7 +40,7 @@ const Review = React.memo(() => {
 
   useEffect(() => {
     const fetchReview = async () => {
-      const response = await  axios.get('http://localhost:8000/review/getReview')
+      const response = await api.get('/review/getReview')
     setReviews(response.data.data)
     }
     fetchReview()

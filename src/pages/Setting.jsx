@@ -3,7 +3,7 @@ import './styles/setting.css';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { useUserStore } from "../store/userDataStore";
-import axios from 'axios';
+import api from '../api/axios';
 import { FaPencilAlt } from 'react-icons/fa';
 
 const Setting = () => {
@@ -46,8 +46,7 @@ const Setting = () => {
   }, [pic]);
 
   const updateProfileMutation = useMutation({
-    mutationFn: (formData) => axios.post('http://localhost:8000/profile/updateProfile', formData, {
-      withCredentials: true,
+    mutationFn: (formData) => api.post('/profile/updateProfile', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       }

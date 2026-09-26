@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
+import api from '../api/axios'
 
 const schema = z.object({
     name: z.string().regex(/^[a-zA-Z0-9_' ']+$/, 'username contain letter,number and underscore'),
@@ -23,9 +23,7 @@ const SignUp = React.memo(() => {
     })
 
     const CreateUser = useMutation({
-        mutationFn: (data) => axios.post('http://localhost:8000/user/createUser', data, {
-            withCredentials : true
-        }),
+        mutationFn: (data) => api.post('/user/createUser', data),
         onSuccess: (response) => {
             navigate('/profile')
         },

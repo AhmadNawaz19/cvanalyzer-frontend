@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import axios from "axios";
+import api from "../api/axios";
 import {
   FaHistory,
   FaExternalLinkAlt,
@@ -62,12 +62,8 @@ useEffect(() => {
       setError(null);
 
       const [historyRes, preferRes] = await Promise.allSettled([
-        axios.get("http://localhost:8000/history/historyData", {
-          withCredentials: true,
-        }),
-        axios.get("http://localhost:8000/preferCV/preferCVdata", {
-          withCredentials: true,
-        }),
+        api.get("/history/historyData"),
+        api.get("/preferCV/preferCVdata"),
       ]);
 
       if (historyRes.status === "fulfilled" && historyRes.value.data) {
@@ -98,12 +94,9 @@ const DeleteHistory = async () => {
   if (!conf) return;
 
   try {
-    const response = await axios.post(
-      "http://localhost:8000/delete/deletehistoryData",
+    const response = await api.post(
+      "/delete/deletehistoryData",
       {},
-      {
-        withCredentials: true,
-      }
     );
 
     if (!response.data.success) return;

@@ -3,7 +3,7 @@ import "./styles/navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useUserStore } from "../store/userDataStore";
 import { FaFileCode, FaUser, FaSignOutAlt, FaHistory } from "react-icons/fa";
-import axios from "axios";
+import api from "../api/axios";
 
 const Navbar = React.memo(() => {
   const { user, setUser, clearUser } = useUserStore();
@@ -13,10 +13,7 @@ const Navbar = React.memo(() => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8000/userData/data",
-          { withCredentials: true }
-        );
+        const response = await api.get("/userData/data");
         if (response.data?.data) {
           setUser(response.data.data);
         }
@@ -34,9 +31,7 @@ const Navbar = React.memo(() => {
     if (!isLogout) return
 
     try {
-      await axios.delete("http://localhost:8000/logout", {
-        withCredentials: true,
-      })
+      await api.delete("/logout")
     } catch (error) {
       console.error("Logout failed:", error)
     } finally {

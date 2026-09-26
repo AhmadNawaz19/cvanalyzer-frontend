@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import api from "../api/axios";
 
 const schema = z.object({
   email: z.string().email("invalid email").endsWith("@gmail.com"),
@@ -35,9 +35,7 @@ const Login = React.memo(() => {
   });
   const ValidateUser = useMutation({
     mutationFn: (userData) =>
-      axios.post("http://localhost:8000/user/loginUser", userData, {
-        withCredentials: true,
-      }),
+      api.post("/user/loginUser", userData),
     onSuccess: (response) => {
       navigate("/profile");
     },

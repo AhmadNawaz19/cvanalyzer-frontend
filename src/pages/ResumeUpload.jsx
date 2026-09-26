@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./styles/resumeUpload.css";
 import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import api from "../api/axios";
 import { FaCloudUploadAlt, FaFilePdf, FaTrashAlt, FaSpinner, FaExclamationCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -72,9 +72,7 @@ const ResumeUpload = React.memo(() => {
   // React Query Mutation
   const sendResumeAndDescription = useMutation({
     mutationFn: (formData) =>
-      axios.post("http://localhost:8000/file/fileupload", formData, {
-        withCredentials: true,
-      }),
+      api.post("/file/fileupload", formData),
     onSuccess: (response) => {
       setServerError("");
       const resultUrl = response.data?.data?.url;

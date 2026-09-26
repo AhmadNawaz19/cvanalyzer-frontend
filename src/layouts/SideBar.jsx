@@ -4,7 +4,7 @@ import { FaHistory, FaSignOutAlt, FaCloudUploadAlt, FaUserCircle } from 'react-i
 import { FiSettings } from 'react-icons/fi'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useUserStore } from '../store/userDataStore'
-import axios from 'axios'
+import api from '../api/axios'
 
 const SideBar = React.memo(() => {
   const { user, clearUser } = useUserStore()
@@ -15,9 +15,7 @@ const SideBar = React.memo(() => {
     if (!isLogout) return
 
     try {
-      await axios.delete("http://localhost:8000/logout", {
-        withCredentials: true,
-      })
+      await api.delete("/logout")
     } catch (error) {
       console.error("Logout failed:", error)
     } finally {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import api from "../api/axios";
 import "./styles/allReviews.css";
 
 const AllReviews = () => {
@@ -12,9 +12,7 @@ const AllReviews = () => {
     const fetchReviews = async () => {
       try {
         // Replace '/api/reviews' with your actual backend API URL
-        const response = await axios.get(
-          "http://localhost:8000/review/getAllReview",
-        );
+        const response = await api.get("/review/getAllReview");
         setReviews(response.data.data);
       } catch (err) {
         setError(
