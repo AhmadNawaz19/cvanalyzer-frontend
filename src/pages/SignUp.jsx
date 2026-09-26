@@ -27,7 +27,6 @@ const SignUp = React.memo(() => {
             withCredentials : true
         }),
         onSuccess: (response) => {
-            console.log(response.data)
             navigate('/profile')
         },
         onError: (error) => {
@@ -39,7 +38,6 @@ const SignUp = React.memo(() => {
     })
 
     const submitData = (data) => {
-        console.log(data)
         CreateUser.mutate(data)
     }
 

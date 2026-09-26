@@ -16,7 +16,6 @@ const AllReviews = () => {
           "http://localhost:8000/review/getAllReview",
         );
         setReviews(response.data.data);
-        console.log(response.data);
       } catch (err) {
         setError(
           err.response?.data?.message ||
@@ -31,9 +30,6 @@ const AllReviews = () => {
     fetchReviews();
   }, []);
 
-  useEffect(() => {
-    console.log(reviews);
-  }, [reviews]);
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, i) => (

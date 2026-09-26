@@ -39,12 +39,10 @@ const Login = React.memo(() => {
         withCredentials: true,
       }),
     onSuccess: (response) => {
-      console.log(response.data);
       navigate("/profile");
     },
 
     onError: (error) => {
-      console.log(error.response?.data);
       setError("root.serverError", {
         type: "manual",
         message: error.response?.data,
@@ -53,7 +51,6 @@ const Login = React.memo(() => {
   });
 
   const submiteData = (data) => {
-    console.log("data submite", data);
     ValidateUser.mutate(data);
   };
 
