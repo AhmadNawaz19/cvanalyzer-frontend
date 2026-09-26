@@ -1,0 +1,36 @@
+#signIn, #login{
+    padding: 10px;
+    width: 20%;
+    border-radius: 10px;
+    font-size: 1.2vw;
+    font-weight: bolder;
+    margin-left: 50px;
+    color: white;
+    border: 0px;
+    &:hover{
+        cursor: pointer;
+    }
+}
+#login{
+    width: 38%;
+    font-size: 1.5vw;
+    text-decoration: none;
+   &:hover{
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+/* User Profile Styling */
+
+#userProfile{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: white;
+    img{
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+    }
+}

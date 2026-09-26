@@ -1,0 +1,7 @@
+#HomeContainer{
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}

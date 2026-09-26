@@ -1,0 +1,157 @@
+#signup {
+    height: 100vh;
+    width: 100%;
+    background-color: #f8fafc;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(79, 70, 229, 0.05) 0px, transparent 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+
+    form {
+        height: auto;
+        min-height: 520px;
+        width: 100%;
+        max-width: 440px;
+        background-color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 20px;
+        padding: 36px 32px;
+        box-shadow: 
+            0 10px 25px -5px rgba(0, 0, 0, 0.04),
+            0 8px 10px -6px rgba(0, 0, 0, 0.02);
+        border: 1px solid #f1f5f9;
+        box-sizing: border-box;
+
+        .userinput {
+            width: 100%;
+            height: 48px;
+            margin-top: 18px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+            display: flex;
+            align-items: center;
+            padding: 0 14px;
+            box-sizing: border-box;
+            transition: all 0.2s ease-in-out;
+
+            &:focus-within {
+                border-color: #6366f1;
+                background-color: #ffffff;
+                box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            }
+
+            i {
+                margin-left: 0;
+                color: #94a3b8;
+                font-size: 1rem;
+                flex-shrink: 0;
+            }
+
+            input {
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+                border: 0px;
+                margin-left: 12px;
+                background-color: transparent;
+                font-size: 0.925rem;
+                color: #1e293b;
+
+                &::placeholder {
+                    color: #94a3b8;
+                }
+
+                &:focus {
+                    outline: 0px;
+                }
+            }
+
+            input:-webkit-autofill,
+            input:-webkit-autofill:hover,
+            input:-webkit-autofill:focus,
+            input:-webkit-autofill:active {
+                -webkit-box-shadow: 0 0 0 1000px #f8fafc inset !important;
+                -webkit-text-fill-color: #1e293b !important;
+                transition: background-color 5000s ease-in-out 0s;
+            }
+
+            /* Password toggle styling */
+            i.fa-regular, img {
+                cursor: pointer;
+                color: #94a3b8;
+                transition: color 0.2s ease;
+
+                &:hover {
+                    color: #475569;
+                }
+            }
+        }
+
+        /* Error Text Styling */
+        p[style*="color: red"], p[style*="color:red"] {
+            width: 100%;
+            text-align: left;
+            margin-top: 6px;
+            margin-bottom: 0;
+            font-size: 0.8rem !important;
+            font-weight: 500;
+            color: #ef4444 !important;
+        }
+
+        #loginBtn {
+            padding: 0;
+            width: 100%;
+            height: 46px;
+            margin-top: 24px;
+            border-radius: 12px;
+            border: 0px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+            color: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+            transition: all 0.2s ease;
+
+            &:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+        }
+
+        #para1 {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-top: 20px;
+            text-align: center;
+
+            a {
+                color: #4f46e5;
+                font-weight: 600;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        p {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-align: center;
+        }
+    }
+}

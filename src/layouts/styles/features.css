@@ -1,0 +1,92 @@
+#features {
+  width: 90%;
+  margin: 60px auto;
+  padding: 20px 0;
+  box-sizing: border-box;
+
+  .features-header {
+    text-align: center;
+    margin-bottom: 40px;
+
+    #features-title {
+      font-size: clamp(2rem, 3.2vw, 2.75rem);
+      font-weight: 800;
+      color: #111827;
+      letter-spacing: -0.02em;
+      margin: 0 0 12px 0;
+    }
+
+    #features-subtitle {
+      font-size: clamp(1rem, 1.2vw, 1.125rem);
+      color: #6b7280;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+  }
+
+  #features-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+
+    .feature-card {
+      background: #ffffff;
+      border: 1px solid rgba(229, 231, 235, 0.9);
+      border-radius: 16px;
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.07), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+        border-color: rgba(99, 102, 241, 0.3);
+      }
+
+      .icon-badge {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+
+        &.indigo {
+          background-color: #eef2ff;
+          color: #4f46e5;
+        }
+        &.violet {
+          background-color: #f5f3ff;
+          color: #7c3aed;
+        }
+        &.rose {
+          background-color: #fff1f2;
+          color: #e11d48;
+        }
+        &.amber {
+          background-color: #fffbeb;
+          color: #d97706;
+        }
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin: 0 0 10px 0;
+      }
+
+      p {
+        font-size: 0.95rem;
+        color: #6b7280;
+        line-height: 1.6;
+        margin: 0;
+      }
+    }
+  }
+}
