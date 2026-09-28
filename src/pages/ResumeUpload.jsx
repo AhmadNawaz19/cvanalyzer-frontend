@@ -82,28 +82,36 @@ const ResumeUpload = React.memo(() => {
   // React Query Mutation
   const sendResumeAndDescription = useMutation({
     mutationFn: (formData) => api.post("/file/fileupload", formData),
+
     onSuccess: (response) => {
       setServerError("");
+
       const resultUrl = response.data?.data?.url;
+
       if (resultUrl) {
         setBestResume(resultUrl);
       }
     },
+
     onError: (err) => {
       console.log("ANALYSIS ERROR:", err);
-      console.log("Response:", err.response);
-      console.log("Status:", err.response?.status);
-      console.log("Data:", err.response?.data);
-      console.log("Message:", err.message);
 
       const status = err.response?.status;
+      const responseData = err.response?.data;
+      const message = err.message;
 
       if (status === 401) {
         navigate("/login");
         return;
       }
 
-      setServerError(`Status: ${status || "No response"} | ${err.message}`);
+      setServerError(
+        `STATUS: ${status || "NO RESPONSE"}\nMESSAGE: ${message}\nDATA: ${
+          responseData
+            ? JSON.stringify(responseData)
+            : "No response from server"
+        }`,
+      );
     },
   });
 
