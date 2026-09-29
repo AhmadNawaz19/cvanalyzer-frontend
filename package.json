@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev":  "concurrently \"vite --host\" \"cd ../backend && npm start\"",
+    "dev": "concurrently \"vite --host\" \"cd ../backend && npm start\"",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -13,6 +13,7 @@
     "@hookform/resolvers": "^5.4.0",
     "@tanstack/react-query": "^5.101.0",
     "axios": "^1.17.0",
+    "eruda": "^3.4.3",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-hook-form": "^7.77.0",
