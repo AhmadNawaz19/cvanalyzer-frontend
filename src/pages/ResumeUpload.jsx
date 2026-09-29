@@ -115,39 +115,42 @@ const ResumeUpload = React.memo(() => {
     },
   });
 
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
   setServerError("");
 
- const testForm = new FormData();
+ const formDataPayload = new FormData();
 
-const bytes = new Uint8Array(425574);
+const originalFile = resumes[0];
 
-for (let i = 0; i < bytes.length; i++) {
-  bytes[i] = i % 256;
-}
-
-const testBlob = new Blob(
-  [bytes],
+const pdfBlob = new Blob(
+  [await originalFile.arrayBuffer()],
   { type: "application/pdf" }
 );
 
-testForm.append("resume", testBlob, "binary-test.pdf");
-testForm.append("description", "binary mobile test");
+console.log("Original size:", originalFile.size);
+console.log("Blob size:", pdfBlob.size);
+console.log("Blob type:", pdfBlob.type);
 
-console.log("Binary blob size:", testBlob.size);
+formDataPayload.append(
+  "resume",
+  pdfBlob,
+  originalFile.name
+);
+
+formDataPayload.append("description", description);
 
 fetch(`${import.meta.env.VITE_API_URL}/file/fileupload-test`, {
   method: "POST",
-  body: testForm,
+  body: formDataPayload,
   credentials: "include",
 })
   .then(async (response) => {
-    console.log("BINARY STATUS:", response.status);
-    console.log("BINARY RESPONSE:", await response.text());
+    console.log("PDF BLOB STATUS:", response.status);
+    console.log("PDF BLOB RESPONSE:", await response.text());
   })
   .catch((error) => {
-    console.log("BINARY ERROR:", error);
+    console.log("PDF BLOB ERROR:", error);
   });
 };
 
