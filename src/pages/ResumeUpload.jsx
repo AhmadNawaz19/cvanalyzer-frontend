@@ -121,17 +121,21 @@ const handleSubmit = (e) => {
 
  const testForm = new FormData();
 
-const testData = "A".repeat(420 * 1024);
+const bytes = new Uint8Array(425574);
+
+for (let i = 0; i < bytes.length; i++) {
+  bytes[i] = i % 256;
+}
 
 const testBlob = new Blob(
-  [testData],
+  [bytes],
   { type: "application/pdf" }
 );
 
-testForm.append("resume", testBlob, "test.pdf");
-testForm.append("description", "100kb mobile test");
+testForm.append("resume", testBlob, "binary-test.pdf");
+testForm.append("description", "binary mobile test");
 
-console.log("Blob size:", testBlob.size);
+console.log("Binary blob size:", testBlob.size);
 
 fetch(`${import.meta.env.VITE_API_URL}/file/fileupload-test`, {
   method: "POST",
@@ -139,11 +143,11 @@ fetch(`${import.meta.env.VITE_API_URL}/file/fileupload-test`, {
   credentials: "include",
 })
   .then(async (response) => {
-    console.log("100KB STATUS:", response.status);
-    console.log("100KB RESPONSE:", await response.text());
+    console.log("BINARY STATUS:", response.status);
+    console.log("BINARY RESPONSE:", await response.text());
   })
   .catch((error) => {
-    console.log("100KB ERROR:", error);
+    console.log("BINARY ERROR:", error);
   });
 };
 
