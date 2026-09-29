@@ -121,16 +121,17 @@ const handleSubmit = (e) => {
 
  const testForm = new FormData();
 
+const testData = "A".repeat(100 * 1024);
+
 const testBlob = new Blob(
-  ["Hello mobile upload"],
+  [testData],
   { type: "application/pdf" }
 );
 
 testForm.append("resume", testBlob, "test.pdf");
-testForm.append("description", "mobile blob test");
+testForm.append("description", "100kb mobile test");
 
 console.log("Blob size:", testBlob.size);
-console.log("Blob type:", testBlob.type);
 
 fetch(`${import.meta.env.VITE_API_URL}/file/fileupload-test`, {
   method: "POST",
@@ -138,11 +139,11 @@ fetch(`${import.meta.env.VITE_API_URL}/file/fileupload-test`, {
   credentials: "include",
 })
   .then(async (response) => {
-    console.log("BLOB STATUS:", response.status);
-    console.log("BLOB RESPONSE:", await response.text());
+    console.log("100KB STATUS:", response.status);
+    console.log("100KB RESPONSE:", await response.text());
   })
   .catch((error) => {
-    console.log("BLOB ERROR:", error);
+    console.log("100KB ERROR:", error);
   });
 };
 
