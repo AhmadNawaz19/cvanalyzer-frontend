@@ -116,7 +116,10 @@ const ResumeUpload = React.memo(() => {
   });
 
 const handleSubmit = (e) => {
-  const testForm = new FormData();
+  e.preventDefault();
+  setServerError("");
+
+ const testForm = new FormData();
 
 const testBlob = new Blob(
   ["Hello mobile upload"],
