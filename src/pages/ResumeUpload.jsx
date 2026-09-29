@@ -116,34 +116,31 @@ const ResumeUpload = React.memo(() => {
   });
 
 const handleSubmit = (e) => {
-  e.preventDefault();
-  setServerError("");
+  const testForm = new FormData();
 
-  // Build FormData with PDF
-  const formDataPayload = new FormData();
+const testBlob = new Blob(
+  ["Hello mobile upload"],
+  { type: "application/pdf" }
+);
 
-  resumes.forEach((file) => {
-    formDataPayload.append("resume", file);
-  });
+testForm.append("resume", testBlob, "test.pdf");
+testForm.append("description", "mobile blob test");
 
-  formDataPayload.append("description", description);
+console.log("Blob size:", testBlob.size);
+console.log("Blob type:", testBlob.type);
 
-  console.log("PDF:", resumes[0]?.name);
-  console.log("PDF type:", resumes[0]?.type);
-  console.log("PDF size:", resumes[0]?.size);
-
-  fetch(`${import.meta.env.VITE_API_URL}/file/fileupload-test`, {
-    method: "POST",
-    body: formDataPayload,
-    credentials: "include",
+fetch(`${import.meta.env.VITE_API_URL}/file/fileupload-test`, {
+  method: "POST",
+  body: testForm,
+  credentials: "include",
+})
+  .then(async (response) => {
+    console.log("BLOB STATUS:", response.status);
+    console.log("BLOB RESPONSE:", await response.text());
   })
-    .then(async (response) => {
-      console.log("TEST STATUS:", response.status);
-      console.log("TEST RESPONSE:", await response.text());
-    })
-    .catch((error) => {
-      console.log("TEST ERROR:", error);
-    });
+  .catch((error) => {
+    console.log("BLOB ERROR:", error);
+  });
 };
 
   return (
