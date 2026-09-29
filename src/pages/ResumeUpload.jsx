@@ -121,7 +121,7 @@ const handleSubmit = (e) => {
 
  const testForm = new FormData();
 
-const testData = "A".repeat(300 * 1024);
+const testData = "A".repeat(400 * 1024);
 
 const testBlob = new Blob(
   [testData],
