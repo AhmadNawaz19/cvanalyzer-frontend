@@ -140,6 +140,12 @@ const ResumeUpload = React.memo(() => {
     });
     formDataPayload.append("description", description);
 
+    console.log("Mobile file:", resumes[0]);
+    console.log("File name:", resumes[0]?.name);
+    console.log("File type:", resumes[0]?.type);
+    console.log("File size:", resumes[0]?.size);
+    console.log("File instanceof File:", resumes[0] instanceof File);
+
     sendResumeAndDescription.mutate(formDataPayload);
   };
 
