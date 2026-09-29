@@ -141,7 +141,7 @@ const ResumeUpload = React.memo(() => {
 
   console.log("Testing FormData POST without PDF");
 
-  fetch(`${import.meta.env.VITE_API_URL}/file/fileupload`, {
+  fetch(`${import.meta.env.VITE_API_URL}/file/fileupload-test`, {
     method: "POST",
     body: testForm,
     credentials: "include",
