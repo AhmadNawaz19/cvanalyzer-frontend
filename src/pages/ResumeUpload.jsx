@@ -146,7 +146,18 @@ const ResumeUpload = React.memo(() => {
     console.log("File size:", resumes[0]?.size);
     console.log("File instanceof File:", resumes[0] instanceof File);
 
-    sendResumeAndDescription.mutate(formDataPayload);
+    fetch(`${import.meta.env.VITE_API_URL}/file/fileupload`, {
+  method: "POST",
+  body: formDataPayload,
+  credentials: "include",
+})
+  .then(async (response) => {
+    console.log("FETCH STATUS:", response.status);
+    console.log("FETCH RESPONSE:", await response.text());
+  })
+  .catch((error) => {
+    console.log("FETCH ERROR:", error);
+  });
   };
 
   return (
