@@ -115,50 +115,45 @@ const ResumeUpload = React.memo(() => {
     },
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setServerError("");
+ const handleSubmit = (e) => {
+  e.preventDefault();
+  setServerError("");
 
-    // Validate using Zod
-    const validation = uploadSchema.safeParse({ resumes, description });
+  // Validate using Zod
+  const validation = uploadSchema.safeParse({ resumes, description });
 
-    if (!validation.success) {
-      const formattedErrors = {};
-      validation.error.issues.forEach((issue) => {
-        formattedErrors[issue.path[0]] = issue.message;
-      });
-      setErrors(formattedErrors);
-      return;
-    }
+  if (!validation.success) {
+    const formattedErrors = {};
 
-    setErrors({});
-
-    // Build FormData payload
-    const formDataPayload = new FormData();
-    resumes.forEach((file) => {
-      formDataPayload.append("resume", file);
+    validation.error.issues.forEach((issue) => {
+      formattedErrors[issue.path[0]] = issue.message;
     });
-    formDataPayload.append("description", description);
 
-    console.log("Mobile file:", resumes[0]);
-    console.log("File name:", resumes[0]?.name);
-    console.log("File type:", resumes[0]?.type);
-    console.log("File size:", resumes[0]?.size);
-    console.log("File instanceof File:", resumes[0] instanceof File);
+    setErrors(formattedErrors);
+    return;
+  }
 
-    fetch(`${import.meta.env.VITE_API_URL}/file/fileupload`, {
-  method: "POST",
-  body: formDataPayload,
-  credentials: "include",
-})
-  .then(async (response) => {
-    console.log("FETCH STATUS:", response.status);
-    console.log("FETCH RESPONSE:", await response.text());
+  setErrors({});
+
+  // TEST: FormData without PDF
+  const testForm = new FormData();
+  testForm.append("description", "mobile test");
+
+  console.log("Testing FormData POST without PDF");
+
+  fetch(`${import.meta.env.VITE_API_URL}/file/fileupload`, {
+    method: "POST",
+    body: testForm,
+    credentials: "include",
   })
-  .catch((error) => {
-    console.log("FETCH ERROR:", error);
-  });
-  };
+    .then(async (response) => {
+      console.log("FORM POST STATUS:", response.status);
+      console.log("FORM POST RESPONSE:", await response.text());
+    })
+    .catch((error) => {
+      console.log("FORM POST ERROR:", error);
+    });
+};
 
   return (
     <>
