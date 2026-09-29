@@ -119,39 +119,45 @@ const handleSubmit = async (e) => {
   e.preventDefault();
   setServerError("");
 
- const formDataPayload = new FormData();
-
-const originalFile = resumes[0];
-
-const pdfBlob = new Blob(
-  [await originalFile.arrayBuffer()],
-  { type: "application/pdf" }
-);
-
-console.log("Original size:", originalFile.size);
-console.log("Blob size:", pdfBlob.size);
-console.log("Blob type:", pdfBlob.type);
-
-formDataPayload.append(
-  "resume",
-  pdfBlob,
-  originalFile.name
-);
-
-formDataPayload.append("description", description);
-
-fetch(`${import.meta.env.VITE_API_URL}/file/fileupload-test`, {
-  method: "POST",
-  body: formDataPayload,
-  credentials: "include",
-})
-  .then(async (response) => {
-    console.log("PDF BLOB STATUS:", response.status);
-    console.log("PDF BLOB RESPONSE:", await response.text());
-  })
-  .catch((error) => {
-    console.log("PDF BLOB ERROR:", error);
+  // Validate using Zod
+  const validation = uploadSchema.safeParse({
+    resumes,
+    description,
   });
+
+  if (!validation.success) {
+    const formattedErrors = {};
+
+    validation.error.issues.forEach((issue) => {
+      formattedErrors[issue.path[0]] = issue.message;
+    });
+
+    setErrors(formattedErrors);
+    return;
+  }
+
+  setErrors({});
+
+  // Build FormData payload
+  const formDataPayload = new FormData();
+
+  for (const file of resumes) {
+    const pdfBlob = new Blob(
+      [await file.arrayBuffer()],
+      { type: file.type || "application/pdf" }
+    );
+
+    formDataPayload.append(
+      "resume",
+      pdfBlob,
+      file.name
+    );
+  }
+
+  formDataPayload.append("description", description);
+
+  // Send to real upload endpoint
+  sendResumeAndDescription.mutate(formDataPayload);
 };
 
   return (
