@@ -115,43 +115,34 @@ const ResumeUpload = React.memo(() => {
     },
   });
 
- const handleSubmit = (e) => {
+const handleSubmit = (e) => {
   e.preventDefault();
   setServerError("");
 
-  // Validate using Zod
-  const validation = uploadSchema.safeParse({ resumes, description });
+  // Build FormData with PDF
+  const formDataPayload = new FormData();
 
-  if (!validation.success) {
-    const formattedErrors = {};
+  resumes.forEach((file) => {
+    formDataPayload.append("resume", file);
+  });
 
-    validation.error.issues.forEach((issue) => {
-      formattedErrors[issue.path[0]] = issue.message;
-    });
+  formDataPayload.append("description", description);
 
-    setErrors(formattedErrors);
-    return;
-  }
-
-  setErrors({});
-
-  // TEST: FormData without PDF
-  const testForm = new FormData();
-  testForm.append("description", "mobile test");
-
-  console.log("Testing FormData POST without PDF");
+  console.log("PDF:", resumes[0]?.name);
+  console.log("PDF type:", resumes[0]?.type);
+  console.log("PDF size:", resumes[0]?.size);
 
   fetch(`${import.meta.env.VITE_API_URL}/file/fileupload-test`, {
     method: "POST",
-    body: testForm,
+    body: formDataPayload,
     credentials: "include",
   })
     .then(async (response) => {
-      console.log("FORM POST STATUS:", response.status);
-      console.log("FORM POST RESPONSE:", await response.text());
+      console.log("TEST STATUS:", response.status);
+      console.log("TEST RESPONSE:", await response.text());
     })
     .catch((error) => {
-      console.log("FORM POST ERROR:", error);
+      console.log("TEST ERROR:", error);
     });
 };
 
